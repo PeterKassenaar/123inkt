@@ -9,6 +9,9 @@ import {JsonPipe} from "@angular/common";
 // abstract class, can not be instantiated.
 abstract class Animal {
   // protected and private are not inherited. They are only available in the class.
+  // However, if you make a variable 'protected', it IS available in the template,
+  // (with 'private' it is not), but not visible to the outside world. Angular prefers
+  // protected variables in newer versions.
   protected name: string;
 
   // instantiation of the name property

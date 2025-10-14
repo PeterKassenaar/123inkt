@@ -8,5 +8,5 @@ import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'haarlem-routing-app';
+  title = 'routing-app';
 }
