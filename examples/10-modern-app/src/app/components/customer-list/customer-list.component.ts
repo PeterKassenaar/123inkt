@@ -1,4 +1,4 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy} from '@angular/core';
 import {Customer, CustomerService} from "../../shared/services/customer.service";
 
 @Component({
@@ -8,15 +8,12 @@ import {Customer, CustomerService} from "../../shared/services/customer.service"
   templateUrl: './customer-list.component.html',
   styleUrl: './customer-list.component.css'
 })
-export class CustomerListComponent implements OnInit, OnDestroy {
+export class CustomerListComponent implements OnDestroy {
   //...
   customerService = inject(CustomerService);
-  customers: Customer[] = [];
+  customers: Customer[] = this.customerService.getCustomers();
 
-  ngOnInit(): void {
-    //...
-    this.customers = this.customerService.getCustomers();
-  }
+  // constructor(private customerService: CustomerService) {}
 
   ngOnDestroy(): void {
     //...

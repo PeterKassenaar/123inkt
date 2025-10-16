@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {catchError, delay, finalize, Observable, of, tap} from "rxjs";
 import {AsyncPipe} from "@angular/common";
 
 // This is a simple example of how to use the HttpClient.
@@ -35,17 +35,27 @@ interface User {
   templateUrl: './http-client.component.html',
   styleUrl: './http-client.component.css'
 })
-export class HttpClientComponent implements OnInit {
+export class HttpClientComponent {
   // local variable
-  users$?: Observable<User[]>;
+  users?: Observable<User[]>;
   private http = inject(HttpClient);
+  protected isLoading: boolean = false;
 
   ngOnInit() {
     this.fetchUsers();
   }
 
-  private fetchUsers() {
-    this.users$ = this.http.get<User[]>('https://jsonplaceholder.typicode.com/users')
+
+
+  private  fetchUsers() {
+    this.users =  this.http.get<User[]>('https://jsonplaceholder.typicode.com/users')
+      .pipe(
+        delay(2000),
+        catchError(err => of([])),
+        finalize(() => this.isLoading = false),
+      )
+  return this.users;
+
   }
 
 }

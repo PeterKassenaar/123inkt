@@ -1,8 +1,14 @@
 <h2>http-client works!</h2>
-@for (user of users$ | async; track user) {
+@if (!isLoading) {
+  @for (user of users |async; track user) {
+    <div>
+      <h3>Name: {{ user.name }}</h3>
+      <p>Email: {{ user.email }}</p>
+      <hr>
+    </div>
+  }
+} @else {
   <div>
-    <h3>Name: {{ user.name }}</h3>
-    <p>Email: {{ user.email }}</p>
-    <hr>
+    <h1>Bezig met laden....</h1>
   </div>
 }
