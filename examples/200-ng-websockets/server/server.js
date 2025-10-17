@@ -8,9 +8,9 @@ const chatServer = ws.createServer(function (conn) {
   console.log('New Chat connection established.', new Date().toLocaleTimeString());
   conn.on('text', function (msg) {
     // simple object transformation (= add current time)
-    var msgObj = JSON.parse(msg);
+    const msgObj = JSON.parse(msg);
     msgObj.newDate = new Date().toLocaleTimeString();
-    var newMsg = JSON.stringify(msgObj);
+    const newMsg = JSON.stringify(msgObj);
 
     // echo message including the new field to all connected clients
     chatServer.connections.forEach(function (conn) {
@@ -57,8 +57,8 @@ const dataServer = ws.createServer(function (conn) {
 setInterval(function () {
 	// Only emit numbers if there are active connections
 	if (dataServer.connections.length > 0) {
-		var randomNumber = (Math.floor(Math.random() * 10000) + 1).toString();
-		console.log(randomNumber);
+    const randomNumber = (Math.floor(Math.random() * 10000) + 1).toString();
+    console.log(randomNumber);
 		dataServer.connections.forEach((function (conn) {
 			conn.send(randomNumber)
 		}));
