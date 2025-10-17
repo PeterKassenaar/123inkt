@@ -8,12 +8,17 @@ import {WebsocketService} from '../../shared/websocket.service';
   templateUrl: './random.component.html'
 })
 export class RandomComponent implements OnInit {
+  // A string to store the random number received from the WebSocket.
+  // TODO: Create a signal() from this string.
   randomNumber: string = '';
 
+  // Injects the WebsocketService to handle WebSocket communication.
   websocketService: WebsocketService = inject(WebsocketService);
 
   ngOnInit(): void {
+    // Subscribes to the random numbers observable from the WebsocketService.
     this.websocketService.getRandomNumbers().subscribe((num: string) => {
+      // Updates the randomNumber property with the received number.
       this.randomNumber = num;
     });
   }
